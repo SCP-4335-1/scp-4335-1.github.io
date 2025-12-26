@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -497,7 +497,12 @@
         async function loadStats() {
             try {
                 const response = await fetch('stats.json');
-                const stats = await response.json();
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const text = await response.text();
+                console.log('Raw JSON response:', text);
+                const stats = JSON.parse(text);
                 
                 document.getElementById('followers').textContent = stats.followers;
                 document.getElementById('following').textContent = stats.following;
@@ -505,6 +510,11 @@
                 document.getElementById('likes').textContent = stats.likes;
             } catch (error) {
                 console.error('Error loading stats:', error);
+                // Set default values if JSON fails to load
+                document.getElementById('followers').textContent = '0';
+                document.getElementById('following').textContent = '0';
+                document.getElementById('plays').textContent = '0';
+                document.getElementById('likes').textContent = '0';
             }
         }
         
