@@ -356,8 +356,8 @@
 </head>
 <body>
     <div class="language-switcher">
-        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
-        <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+        <button class="lang-btn active" onclick="setLanguage('en', this)">EN</button>
+        <button class="lang-btn" onclick="setLanguage('de', this)">DE</button>
     </div>
     
     <div class="loading-bar"></div>
@@ -537,14 +537,14 @@
 
     <script>
         // Language switching function
-        function setLanguage(lang) {
+        function setLanguage(lang, button) {
             document.body.className = lang === 'de' ? 'lang-de' : '';
             
             // Update button states
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            button.classList.add('active');
             
             // Save preference
             localStorage.setItem('preferredLanguage', lang);
