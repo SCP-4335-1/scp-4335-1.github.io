@@ -493,21 +493,6 @@
     </footer>
 
     <script>
-        // Parse numbers that may have K suffix (e.g., "14K" -> 14000)
-        function parseNumber(value) {
-            if (typeof value === 'number') return value;
-            if (typeof value === 'string') {
-                const trimmed = value.trim().toUpperCase();
-                if (trimmed.endsWith('K')) {
-                    return parseFloat(trimmed.slice(0, -1)) * 1000;
-                }
-                if (trimmed.endsWith('M')) {
-                    return parseFloat(trimmed.slice(0, -1)) * 1000000;
-                }
-                return parseFloat(trimmed) || 0;
-            }
-            return 0;
-        }
 
         // Load stats from JSON file
         async function loadStats() {
@@ -517,7 +502,6 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const text = await response.text();
-                console.log('Raw JSON response:', text);
                 const stats = JSON.parse(text);
                 
                 document.getElementById('followers').textContent = parseNumber(stats.followers).toLocaleString();
