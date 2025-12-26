@@ -445,7 +445,7 @@
 <body>
     <div class="loading-bar"></div>
     
-    <header>
+    <header style="left: 2px; top: -1px;">
         <h1 class="main-title">SCP-4335-1</h1>
         <p class="subtitle">// DIGITALE PRÄSENZ // VERBINDEN //</p>
     </header>
@@ -453,7 +453,7 @@
     <div class="container">
         <div class="content-grid">
             <!-- Center - Main Content -->
-            <section class="section">
+            <section class="section" style="left: -4.24891px; top: -1.49349px;">
                 <h2 class="section-title">Über Mich</h2>
                 <div class="profile-visual">
                     <div class="avatar-container">
@@ -493,6 +493,33 @@
     </footer>
 
     <script>
+        // Parse numbers and format with K/M suffixes for display
+        function parseNumber(value) {
+            let num;
+            if (typeof value === 'number') {
+                num = value;
+            } else if (typeof value === 'string') {
+                const trimmed = value.trim().toUpperCase();
+                if (trimmed.endsWith('K')) {
+                    num = parseFloat(trimmed.slice(0, -1)) * 1000;
+                } else if (trimmed.endsWith('M')) {
+                    num = parseFloat(trimmed.slice(0, -1)) * 1000000;
+                } else {
+                    num = parseFloat(trimmed) || 0;
+                }
+            } else {
+                num = 0;
+            }
+            
+            // Format with K/M suffixes
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            } else {
+                return num.toString();
+            }
+        }
 
         // Load stats from JSON file
         async function loadStats() {
@@ -505,10 +532,10 @@
                 console.log('Raw JSON response:', text);
                 const stats = JSON.parse(text);
                 
-                document.getElementById('followers').textContent = parseNumber(stats.followers).toLocaleString();
-                document.getElementById('following').textContent = parseNumber(stats.following).toLocaleString();
-                document.getElementById('plays').textContent = parseNumber(stats.plays).toLocaleString();
-                document.getElementById('likes').textContent = parseNumber(stats.likes).toLocaleString();
+                document.getElementById('followers').textContent = parseNumber(stats.followers);
+                document.getElementById('following').textContent = parseNumber(stats.following);
+                document.getElementById('plays').textContent = parseNumber(stats.plays);
+                document.getElementById('likes').textContent = parseNumber(stats.likes);
             } catch (error) {
                 console.error('Error loading stats:', error);
                 // Set default values if JSON fails to load
