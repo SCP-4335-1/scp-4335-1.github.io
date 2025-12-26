@@ -476,6 +476,25 @@
             gap: 1rem !important;
         }
 
+        /* Separator bars */
+        .separator-bar {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg,#ff0000);
+            margin: 1rem 0;
+            width: 100%;
+        }
+
+        @keyframes barGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .mobile-device .separator-bar {
+            height: 1px;
+            margin: 0.5rem 0;
+        }
+
         /* Loading animation */
         .loading-bar {
             position: fixed;
@@ -507,7 +526,7 @@
             <!-- Center - Main Content -->
             <section class="section" style="left: -4.24891px; top: -1.49349px;">
                 <h2 class="section-title">Über Mich</h2>
-                <h class="section-title">————————————————————————————</h>
+                <hr class="separator-bar">
                 <h3 class="section-title">Suno</h3>
                 <div class="profile-visual" onclick="window.open('https://suno.com/@scp_4335_1', '_blank')" style="cursor: pointer;">
                     <div class="avatar-container">
@@ -537,7 +556,7 @@
                         </div>
                     </div>    
                 </div>
-                <h class="section-title">————————————————————————————</h>
+                <hr class="separator-bar">
             </section>
         </div>
     </div>
