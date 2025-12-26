@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="SCP-4335-1">
+    <meta name="description" content="Author:SCP-4335-1">
     <title>SCP-4335-1</title>
     <style>
         * {
@@ -172,6 +172,7 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             text-shadow: 0 0 10px #ff0000;
+            text-align: center;
         }
 
         /* Social links */
@@ -276,11 +277,13 @@
             margin-top: 3rem;
             border-top: 1px solid rgba(255, 0, 0, 0.3);
             color: #666;
+            font-size: 1.2rem;
         }
 
         .warning {
             color: #ff6666;
             animation: blink 1s infinite;
+            font-size: 1.2rem;
         }
 
         @keyframes blink {
@@ -305,8 +308,8 @@
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 3px solid rgba(255, 0, 0, 0.3);
             animation: pulse 2s infinite;
@@ -333,6 +336,7 @@
             font-size: 2.3rem;
             margin-bottom: 0.5rem;
             text-shadow: 0 0 10px #ff0000;
+            text-align: center;
         }
 
         .status-text {
@@ -426,6 +430,53 @@
             }
         }
 
+        /* Mobile device specific styles */
+        .mobile-device .main-title {
+            font-size: 2.2rem !important;
+        }
+
+        .mobile-device .subtitle {
+            font-size: 1.1rem !important;
+        }
+
+        .mobile-device .section-title {
+            font-size: 1.3rem !important;
+        }
+
+        .mobile-device .profile-info h3 {
+            font-size: 1.8rem !important;
+        }
+
+        .mobile-device .status-text {
+            font-size: 1.1rem !important;
+        }
+
+        .mobile-device .stat-number {
+            font-size: 1.6rem !important;
+        }
+
+        .mobile-device .stat-label {
+            font-size: 0.8rem !important;
+        }
+
+        .mobile-device .avatar {
+            width: 80px !important;
+            height: 80px !important;
+        }
+
+        .mobile-device .profile-visual {
+            gap: 1rem !important;
+            padding: 1rem 0 !important;
+        }
+
+        .mobile-device .section {
+            padding: 1.5rem !important;
+        }
+
+        .mobile-device .stats {
+            gap: 1rem !important;
+        }
+
         /* Loading animation */
         .loading-bar {
             position: fixed;
@@ -498,6 +549,22 @@
     </footer>
 
     <script>
+        // Detect mobile device and apply appropriate styles
+        function detectDevice() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                           window.innerWidth <= 768;
+            
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+                // Apply mobile-specific styles
+                document.documentElement.style.fontSize = '14px';
+                console.log('Mobile device detected, applying mobile styles');
+            } else {
+                document.body.classList.add('desktop-device');
+                console.log('Desktop device detected, applying desktop styles');
+            }
+        }
+
         // Parse numbers and format with K/M suffixes for display
         function parseNumber(value) {
             let num;
@@ -553,6 +620,7 @@
         
         // Add some interactive animations
         document.addEventListener('DOMContentLoaded', function() {
+            detectDevice();
             loadStats();
             
             // Random glitch effect on title
