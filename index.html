@@ -15,7 +15,11 @@
         body {
             font-family: 'Courier New', monospace;
             background: #000;
-            color: #fff;
+            background-image: 
+                repeating-linear-gradient(0deg, #ff000011 0px, #ff000011 2px, transparent 1px, transparent 60px),
+                repeating-linear-gradient(90deg, #ff000011 0px, #ff000011 2px, transparent 1px, transparent 60px);
+            background-size: 60px 60px;
+            color: #585151;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -46,11 +50,12 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(255, 0, 0, 0.01) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.01) 0.5px, transparent 0.5px);
+            background-size: 100px 100px;
             z-index: -1;
             animation: gridMove 20s linear infinite;
+            transform-origin: center center;
         }
 
         @keyframes pulse {
@@ -59,8 +64,9 @@
         }
 
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% { transform: scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
         }
 
         /* Header */
@@ -86,10 +92,11 @@
         }
 
         .subtitle {
-            font-size: 1.4rem;
+            font-size: 2rem;
             color: #ff0000;
-            text-shadow: 0 0 5px #ff0000;
-            opacity: 1;
+            text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 15px #000000;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
             animation: fadeInOut 3s infinite;
         }
 
@@ -518,7 +525,7 @@
     
     <header style="left: 2px; top: -1px;">
         <h1 class="main-title">SCP-4335-1</h1>
-        <p class="subtitle">// DIGITALE PRÄSENZ // VERBINDEN //</p>
+        <h1 class="subtitle">// DIGITALE PRÄSENZ // VERBINDEN //</h1>
     </header>
 
     <div class="container">
