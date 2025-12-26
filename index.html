@@ -1,1 +1,508 @@
-<h1>SCP-4335-1</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCP-4335-1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Language switcher */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 15px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 0, 0, 0.4);
+            border-color: #ff0000;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .lang-btn.active {
+            background: rgba(255, 0, 0, 0.6);
+            border-color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        /* Hide elements by language */
+        .lang-en { display: block; }
+        .lang-de { display: none; }
+
+        body.lang-de .lang-en { display: none; }
+        body.lang-de .lang-de { display: block; }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        /* Grid overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #8b0000;
+            animation: neonFlicker 2s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            opacity: 0.8;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #8b0000;
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px #ff0000,
+                    0 0 10px #ff0000,
+                    0 0 15px #ff0000,
+                    0 0 20px #8b0000;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Content sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        /* Social links */
+        .social-links {
+            list-style: none;
+        }
+
+        .social-links li {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .social-links a:hover::before {
+            left: 0;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+            transform: translateX(10px);
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: currentColor;
+        }
+
+        /* Main content */
+        .main-content {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .main-content p {
+            margin-bottom: 1rem;
+            animation: typewriter 2s steps(40) 1s 1 normal both;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Info panel */
+        .info-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 3px solid #ff0000;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            color: #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .info-value {
+            color: #fff;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+            color: #666;
+        }
+
+        .warning {
+            color: #ff0000;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: loading 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+        <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+    </div>
+    
+    <div class="loading-bar"></div>
+    
+    <header>
+        <h1 class="main-title">SCP-4335-1</h1>
+        <p class="subtitle lang-en">// CLASSIFIED // ACCESS RESTRICTED //</p>
+        <p class="subtitle lang-de">// GEHEIM // ZUGANG BESCHRÄNKT //</p>
+    </header>
+
+    <div class="container">
+        <div class="content-grid">
+            <!-- Left Panel - Social Links -->
+            <section class="section">
+                <h2 class="section-title">Connect</h2>
+                <ul class="social-links">
+                    <li>
+                        <a href="https://twitter.com" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                            </svg>
+                            Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                            </svg>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linkedin.com" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515a.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0a12.64 12.64 0 00-.617-1.25a.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057a19.9 19.9 0 005.993 3.03a.078.078 0 00.084-.028a14.09 14.09 0 001.226-1.994a.076.076 0 00-.041-.106a13.107 13.107 0 01-1.872-.892a.077.077 0 01-.008-.128a10.2 10.2 0 00.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127a12.299 12.299 0 01-1.873.892a.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028a19.839 19.839 0 006.002-3.03a.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            Discord
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://youtube.com" target="_blank">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+                            </svg>
+                            YouTube
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Center - Main Content -->
+            <section class="section">
+                <h2 class="section-title">Subject Profile</h2>
+                <div class="main-content">
+                    <p><strong>Item #:</strong> SCP-4335-1</p>
+                    <p><strong>Object Class:</strong> <span style="color: #ff0000;">KETER</span></p>
+                    <p><strong>Special Containment Procedures:</strong> SCP-4335-1 is to be contained in a standard humanoid containment chamber at Site-19. All personnel interacting with SCP-4335-1 must undergo psychological evaluation before and after contact.</p>
+                    
+                    <p><strong>Description:</strong> SCP-4335-1 is a reality-altering entity capable of manipulating digital and physical systems. The subject exhibits anomalous properties that defy conventional physics and computational models.</p>
+                    
+                    <p><strong>Behavioral Analysis:</strong> Subject demonstrates heightened awareness of observation and responds to external stimuli with unpredictable patterns. Digital interfaces in proximity show signs of corruption and data manipulation.</p>
+                    
+                    <p><strong>Current Status:</strong> <span class="warning">⚠ ACTIVE MONITORING REQUIRED ⚠</span></p>
+                </div>
+            </section>
+
+            <!-- Right Panel - Additional Info -->
+            <section class="section">
+                <h2 class="section-title">System Status</h2>
+                <div class="info-item">
+                    <div class="info-label">Containment Field</div>
+                    <div class="info-value">STABLE</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Neural Activity</div>
+                    <div class="info-value">87.3%</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Reality Coefficient</div>
+                    <div class="info-value">0.742</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Last Breach Attempt</div>
+                    <div class="info-value">72 HOURS AGO</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Security Level</div>
+                    <div class="info-value" style="color: #ff0000;">LEVEL 4</div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>© SCP Foundation // CLASSIFIED INFORMATION // UNAUTHORIZED ACCESS PROHIBITED</p>
+        <p class="warning">WARNING: This system is monitored. Any attempts to breach security will be met with lethal force.</p>
+    </footer>
+
+    <script>
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Random glitch effect on title
+            const title = document.querySelector('.main-title');
+            setInterval(() => {
+                if (Math.random() > 0.95) {
+                    title.style.textShadow = '0 0 20px #fff, 0 0 40px #ff0000, 0 0 60px #ff0000';
+                    setTimeout(() => {
+                        title.style.textShadow = '';
+                    }, 100);
+                }
+            }, 2000);
+
+            // Typing effect for main content
+            const paragraphs = document.querySelectorAll('.main-content p');
+            paragraphs.forEach((p, index) => {
+                p.style.opacity = '0';
+                setTimeout(() => {
+                    p.style.transition = 'opacity 1s ease-in';
+                    p.style.opacity = '1';
+                }, index * 500);
+            });
+
+            // Hover sound effect simulation (visual feedback)
+            const links = document.querySelectorAll('.social-links a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.color = '#ff0000';
+                    this.style.textShadow = '0 0 10px #ff0000';
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.style.color = '#fff';
+                    this.style.textShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
