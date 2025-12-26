@@ -19,48 +19,7 @@
             min-height: 100vh;
         }
 
-        /* Language switcher */
-        .language-switcher {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-
-        .lang-btn {
-            padding: 8px 15px;
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid rgba(255, 0, 0, 0.5);
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
-
-        .lang-btn:hover {
-            background: rgba(255, 0, 0, 0.4);
-            border-color: #ff0000;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .lang-btn.active {
-            background: rgba(255, 0, 0, 0.6);
-            border-color: #ff0000;
-            text-shadow: 0 0 5px #ff0000;
-        }
-
-        /* Hide elements by language */
-        .lang-en { display: block; }
-        .lang-de { display: none; }
-
-        body.lang-de .lang-en { display: none; }
-        body.lang-de .lang-de { display: block; }
-
+        
         /* Animated background */
         body::before {
             content: '';
@@ -165,9 +124,12 @@
         /* Content sections */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1fr;
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section {
@@ -325,7 +287,133 @@
             25%, 75% { opacity: 0.5; }
         }
 
-        /* Responsive */
+        /* Profile visual styles */
+        .profile-visual {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            object-fit: cover;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff0000;
+            border: 3px solid #000;
+        }
+
+        .status-indicator.active {
+            animation: blink 1s infinite;
+        }
+
+        .profile-info h3 {
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px #ff0000;
+        }
+
+        .status-text {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        /* Music stats styles */
+        .music-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #ff0000;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
         @media (max-width: 768px) {
             .content-grid {
                 grid-template-columns: 1fr;
@@ -355,219 +443,74 @@
     </style>
 </head>
 <body>
-    <div class="language-switcher">
-        <button class="lang-btn active" onclick="setLanguage('en', this)">EN</button>
-        <button class="lang-btn" onclick="setLanguage('de', this)">DE</button>
-    </div>
-    
     <div class="loading-bar"></div>
     
     <header>
         <h1 class="main-title">SCP-4335-1</h1>
-        <p class="subtitle lang-en">// CLASSIFIED // ACCESS RESTRICTED //</p>
-        <p class="subtitle lang-de">// GEHEIM // ZUGANG BESCHRÄNKT //</p>
+        <p class="subtitle">// DIGITALE PRÄSENZ // VERBINDEN //</p>
     </header>
 
     <div class="container">
         <div class="content-grid">
-            <!-- Left Panel - Social Links -->
-            <section class="section">
-                <h2 class="section-title lang-en">Connect</h2>
-                <h2 class="section-title lang-de">Verbinden</h2>
-                <ul class="social-links">
-                    <li>
-                        <a href="https://twitter.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                            </svg>
-                            <span class="lang-en">Twitter</span>
-                            <span class="lang-de">Twitter</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-                            </svg>
-                            <span class="lang-en">GitHub</span>
-                            <span class="lang-de">GitHub</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://linkedin.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                                <circle cx="4" cy="4" r="2"/>
-                            </svg>
-                            <span class="lang-en">LinkedIn</span>
-                            <span class="lang-de">LinkedIn</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://discord.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515a.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0a12.64 12.64 0 00-.617-1.25a.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057a19.9 19.9 0 005.993 3.03a.078.078 0 00.084-.028a14.09 14.09 0 001.226-1.994a.076.076 0 00-.041-.106a13.107 13.107 0 01-1.872-.892a.077.077 0 01-.008-.128a10.2 10.2 0 00.372-.292a.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127a12.299 12.299 0 01-1.873.892a.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028a19.839 19.839 0 006.002-3.03a.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
-                            </svg>
-                            <span class="lang-en">Discord</span>
-                            <span class="lang-de">Discord</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://suno.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
-                            <span class="lang-en">Suno 1</span>
-                            <span class="lang-de">Suno 1</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://suno.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
-                            <span class="lang-en">Suno 2</span>
-                            <span class="lang-de">Suno 2</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://suno.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
-                            <span class="lang-en">Suno 3</span>
-                            <span class="lang-de">Suno 3</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://suno.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
-                            <span class="lang-en">Suno 4</span>
-                            <span class="lang-de">Suno 4</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://suno.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                            </svg>
-                            <span class="lang-en">Suno 5</span>
-                            <span class="lang-de">Suno 5</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://youtube.com" target="_blank">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
-                            </svg>
-                            <span class="lang-en">YouTube</span>
-                            <span class="lang-de">YouTube</span>
-                        </a>
-                    </li>
-                </ul>
-            </section>
-
             <!-- Center - Main Content -->
             <section class="section">
-                <h2 class="section-title lang-en">Subject Profile</h2>
-                <h2 class="section-title lang-de">Subjektprofil</h2>
-                <div class="main-content">
-                    <p class="lang-en"><strong>Item #:</strong> SCP-4335-1</p>
-                    <p class="lang-de"><strong>Objekt #:</strong> SCP-4335-1</p>
-                    <p class="lang-en"><strong>Object Class:</strong> <span style="color: #ff0000;">KETER</span></p>
-                    <p class="lang-de"><strong>Objektklasse:</strong> <span style="color: #ff0000;">KETER</span></p>
-                    <p class="lang-en"><strong>Special Containment Procedures:</strong> SCP-4335-1 is to be contained in a standard humanoid containment chamber at Site-19. All personnel interacting with SCP-4335-1 must undergo psychological evaluation before and after contact.</p>
-                    <p class="lang-de"><strong>Besondere Eindämmungsverfahren:</strong> SCP-4335-1 ist in einer Standard humanoiden Eindämmungskammer in Site-19 zu enthalten. Alle Mitarbeiter, die mit SCP-4335-1 interagieren, müssen vor und nach dem Kontakt einer psychologischen Bewertung unterzogen werden.</p>
-                    
-                    <p class="lang-en"><strong>Description:</strong> SCP-4335-1 is a reality-altering entity capable of manipulating digital and physical systems. The subject exhibits anomalous properties that defy conventional physics and computational models.</p>
-                    <p class="lang-de"><strong>Beschreibung:</strong> SCP-4335-1 ist eine realitätsverändernde Entität, die in der Lage ist, digitale und physische Systeme zu manipulieren. Das Subjekt zeigt anormale Eigenschaften, die herkömmliche Physik und computerbasierte Modelle verletzen.</p>
-                    
-                    <p class="lang-en"><strong>Behavioral Analysis:</strong> Subject demonstrates heightened awareness of observation and responds to external stimuli with unpredictable patterns. Digital interfaces in proximity show signs of corruption and data manipulation.</p>
-                    <p class="lang-de"><strong>Verhaltensanalyse:</strong> Das Subjekt zeigt ein erhöhtes Bewusstsein für Beobachtung und reagiert auf externe Reize mit unvorhersehbaren Mustern. Digitale Schnittstellen in der Nähe zeigen Anzeichen von Korruption und Datenmanipulation.</p>
-                    
-                    <p class="lang-en"><strong>Current Status:</strong> <span class="warning">⚠ ACTIVE MONITORING REQUIRED ⚠</span></p>
-                    <p class="lang-de"><strong>Aktueller Status:</strong> <span class="warning">⚠ AKTIVE ÜBERWACHUNG ERFORDERLICH ⚠</span></p>
-                </div>
-            </section>
-
-            <!-- Right Panel - Additional Info -->
-            <section class="section">
-                <h2 class="section-title lang-en">System Status</h2>
-                <h2 class="section-title lang-de">Systemstatus</h2>
-                <div class="info-item">
-                    <div class="info-label lang-en">Containment Field</div>
-                    <div class="info-label lang-de">Eindämmungsfeld</div>
-                    <div class="info-value lang-en">STABLE</div>
-                    <div class="info-value lang-de">STABIL</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label lang-en">Neural Activity</div>
-                    <div class="info-label lang-de">Neuronale Aktivität</div>
-                    <div class="info-value">87.3%</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label lang-en">Reality Coefficient</div>
-                    <div class="info-label lang-de">Realitätskoeffizient</div>
-                    <div class="info-value">0.742</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label lang-en">Last Breach Attempt</div>
-                    <div class="info-label lang-de">Letzter Bruchversuch</div>
-                    <div class="info-value lang-en">72 HOURS AGO</div>
-                    <div class="info-value lang-de">VOR 72 STUNDEN</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label lang-en">Security Level</div>
-                    <div class="info-label lang-de">Sicherheitsstufe</div>
-                    <div class="info-value lang-en" style="color: #ff0000;">LEVEL 4</div>
-                    <div class="info-value lang-de" style="color: #ff0000;">STUFE 4</div>
+                <h2 class="section-title">Über Mich</h2>
+                <div class="profile-visual">
+                    <div class="avatar-container">
+                        <img class="avatar" src="f49986a1.png" alt="Avatar">
+                        <div class="status-indicator active"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h3>SCP-4335-1</h3>
+                        <p class="status-text">🔥 Aktiver Musik Creator</p>
+                        <div class="stats">
+                            <div class="stat">
+                                <span class="stat-number" id="followers">0</span>
+                                <span class="stat-label">Followers</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="following">0</span>
+                                <span class="stat-label">Following</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="plays">0</span>
+                                <span class="stat-label">Plays</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="likes">0</span>
+                                <span class="stat-label">Likes</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
     </div>
 
     <footer>
-        <p class="lang-en">© SCP Foundation // CLASSIFIED INFORMATION // UNAUTHORIZED ACCESS PROHIBITED</p>
-        <p class="lang-de">© SCP Foundation // GEHEIME INFORMATIONEN // UNAUTORISIERTER ZUGANG VERBOTEN</p>
-        <p class="warning lang-en">WARNING: This system is monitored. Any attempts to breach security will be met with lethal force.</p>
-        <p class="warning lang-de">WARNUNG: Dieses System wird überwacht. Jegliche Versuche, die Sicherheit zu verletzen, werden mit tödlicher Gewalt beantwortet.</p>
+        <p>© SCP-4335-1 // DIGITALE PRÄSENZ // VERBINDE DICH MIT MIR</p>
+        <p class="warning">🌟 Immer erschaffend, immer innovierend 🌟</p>
     </footer>
 
     <script>
-        // Language switching function
-        function setLanguage(lang, button) {
-            document.body.className = lang === 'de' ? 'lang-de' : '';
-            
-            // Update button states
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-            
-            // Save preference
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
-        // Load saved language preference
-        function loadLanguagePreference() {
-            const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang && savedLang === 'de') {
-                document.body.className = 'lang-de';
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.textContent === 'DE') {
-                        btn.classList.add('active');
-                    }
-                });
+        // Load stats from JSON file
+        async function loadStats() {
+            try {
+                const response = await fetch('stats.json');
+                const stats = await response.json();
+                
+                document.getElementById('followers').textContent = stats.followers;
+                document.getElementById('following').textContent = stats.following;
+                document.getElementById('plays').textContent = stats.plays;
+                document.getElementById('likes').textContent = stats.likes;
+            } catch (error) {
+                console.error('Error loading stats:', error);
             }
         }
-
+        
         // Add some interactive animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Load language preference
-            loadLanguagePreference();
+            loadStats();
             
             // Random glitch effect on title
             const title = document.querySelector('.main-title');
@@ -579,29 +522,6 @@
                     }, 100);
                 }
             }, 2000);
-
-            // Typing effect for main content
-            const paragraphs = document.querySelectorAll('.main-content p');
-            paragraphs.forEach((p, index) => {
-                p.style.opacity = '0';
-                setTimeout(() => {
-                    p.style.transition = 'opacity 1s ease-in';
-                    p.style.opacity = '1';
-                }, index * 500);
-            });
-
-            // Hover sound effect simulation (visual feedback)
-            const links = document.querySelectorAll('.social-links a');
-            links.forEach(link => {
-                link.addEventListener('mouseenter', function() {
-                    this.style.color = '#ff0000';
-                    this.style.textShadow = '0 0 10px #ff0000';
-                });
-                link.addEventListener('mouseleave', function() {
-                    this.style.color = '#fff';
-                    this.style.textShadow = '';
-                });
-            });
         });
     </script>
 </body>
