@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -493,6 +493,22 @@
     </footer>
 
     <script>
+        // Parse numbers that may have K suffix (e.g., "14K" -> 14000)
+        function parseNumber(value) {
+            if (typeof value === 'number') return value;
+            if (typeof value === 'string') {
+                const trimmed = value.trim().toUpperCase();
+                if (trimmed.endsWith('K')) {
+                    return parseFloat(trimmed.slice(0, -1)) * 1000;
+                }
+                if (trimmed.endsWith('M')) {
+                    return parseFloat(trimmed.slice(0, -1)) * 1000000;
+                }
+                return parseFloat(trimmed) || 0;
+            }
+            return 0;
+        }
+
         // Load stats from JSON file
         async function loadStats() {
             try {
@@ -504,10 +520,10 @@
                 console.log('Raw JSON response:', text);
                 const stats = JSON.parse(text);
                 
-                document.getElementById('followers').textContent = stats.followers;
-                document.getElementById('following').textContent = stats.following;
-                document.getElementById('plays').textContent = stats.plays;
-                document.getElementById('likes').textContent = stats.likes;
+                document.getElementById('followers').textContent = parseNumber(stats.followers).toLocaleString();
+                document.getElementById('following').textContent = parseNumber(stats.following).toLocaleString();
+                document.getElementById('plays').textContent = parseNumber(stats.plays).toLocaleString();
+                document.getElementById('likes').textContent = parseNumber(stats.likes).toLocaleString();
             } catch (error) {
                 console.error('Error loading stats:', error);
                 // Set default values if JSON fails to load
