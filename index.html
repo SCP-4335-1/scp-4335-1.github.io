@@ -501,16 +501,20 @@
             margin: 0.5rem 0;
         }
 
-        /* Loading animation */
+                /* Loading animation */
         .loading-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff0000, transparent);
-            animation: loading 2s linear infinite;
-            z-index: 1000;
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1000;
+        border: 5px solid transparent;
+        border-image: linear-gradient(
+        90deg,
+        transparent,
+        #ff0000,
+        transparent
+        ) 1;
+        animation: borderShift 2s linear infinite;
         }
 
         @keyframes loading {
@@ -571,9 +575,6 @@
         <p class="subtitle">———SCP-4335-1———</p>
         <p class="warning">🌀 Die Realität ist eine Illusion 🌀</p>
     </footer>
-    <div class="loading-bar"></div>
-
-
     <script>
         // Detect mobile device and apply appropriate styles
         function detectDevice() {
