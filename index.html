@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Author: SCP-4335-1">
+    <title>SCP-4335-1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            background-image: 
+                repeating-linear-gradient(0deg, #ff000011 0px, #ff000011 2px, transparent 1px, transparent 60px),
+                repeating-linear-gradient(90deg, #ff000011 0px, #ff000011 2px, transparent 1px, transparent 60px);
+            background-size: 60px 60px;
+            color: #585151;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        /* Grid overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 0, 0.01) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.01) 0.5px, transparent 0.5px);
+            background-size: 100px 100px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+            transform-origin: center center;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-shadow: 
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000,
+                0 0 40px #8b0000;
+            animation: neonFlicker 2s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: #ff0000;
+            text-shadow: 0 0 5px #000000, 0 0 10px #000000, 0 0 15px #000000;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            animation: fadeInOut 3s infinite;
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px #ff0000,
+                    0 0 20px #ff0000,
+                    0 0 30px #ff0000,
+                    0 0 40px #8b0000;
+            }
+            50% {
+                text-shadow: 
+                    0 0 5px #ff0000,
+                    0 0 10px #ff0000,
+                    0 0 15px #ff0000,
+                    0 0 20px #8b0000;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Content sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            color: #ff0000;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 10px #ff0000;
+            text-align: center;
+        }
+
+        /* Social links */
+        .social-links {
+            list-style: none;
+        }
+
+        .social-links li {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .social-links a:hover::before {
+            left: 0;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+            transform: translateX(10px);
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: currentColor;
+        }
+
+        /* Main content */
+        .main-content {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .main-content p {
+            margin-bottom: 1rem;
+            animation: typewriter 2s steps(40) 1s 1 normal both;
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Info panel */
+        .info-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 3px solid #ff0000;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            color: #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        .info-value {
+            color: #e0e0e0;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        .warning {
+            color: #ff0000;
+            font-size: 1.2rem;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        /* Profile visual styles */
+        .profile-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .avatar-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+            object-fit: cover;
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff0000;
+            border: 3px solid #000;
+        }
+
+        .status-indicator.active {
+            animation: blink 1s infinite;
+        }
+
+        .profile-info h3 {
+            color: #ff0000;
+            font-size: 2.3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px #ff0000;
+            text-align: center;
+        }
+
+        .status-text {
+            color: #e0e0e0;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.3rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 1rem;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        /* Music stats styles */
+        .music-stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #ff0000;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-title {
+            font-size: 1rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Mobile device specific styles */
+        .mobile-device .main-title {
+            font-size: 2.2rem !important;
+        }
+
+        .mobile-device .subtitle {
+            font-size: 1.1rem !important;
+        }
+
+        .mobile-device .section-title {
+            font-size: 1.3rem !important;
+        }
+
+        .mobile-device .profile-info h3 {
+            font-size: 1.8rem !important;
+        }
+
+        .mobile-device .status-text {
+            font-size: 1.1rem !important;
+        }
+
+        .mobile-device .stat-number {
+            font-size: 1.6rem !important;
+        }
+
+        .mobile-device .stat-label {
+            font-size: 0.8rem !important;
+        }
+
+        .mobile-device .avatar {
+            width: 80px !important;
+            height: 80px !important;
+        }
+
+        .mobile-device .profile-visual {
+            gap: 1rem !important;
+            padding: 1rem 0 !important;
+        }
+
+        .mobile-device .section {
+            padding: 1.5rem !important;
+        }
+
+        .mobile-device .stats {
+            gap: 1rem !important;
+        }
+
+        /* Separator bars */
+        .separator-bar {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg,#ff0000);
+            margin: 1rem 0;
+            width: 100%;
+        }
+
+        @keyframes barGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .mobile-device .separator-bar {
+            height: 1px;
+            margin: 0.5rem 0;
+        }
+
+                /* Loading animation */
+        .loading-bar {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1000;
+        border: 5px solid transparent;
+        border-image: linear-gradient(
+        90deg,
+        transparent,
+        #ff0000,
+        transparent
+        ) 1;
+        animation: loading 2s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-bar"></div>
+    
+    <header style="left: 2px; top: -1px;">
+        <h1 class="main-title">SCP-4335-1</h1>
+        <h1 class="subtitle">// DIGITALE PRÄSENZ // ILLUSION //</h1>
+    </header>
+
+    <div class="container">
+        <div class="content-grid">
+            <!-- Center - Main Content -->
+            <section class="section" style="left: -4.24891px; top: -1.49349px;">
+                <h2 class="section-title">Über Mich</h2>
+                <hr class="separator-bar">
+                <h3 class="section-title">Suno</h3>
+                <div class="profile-visual" onclick="window.open('https://suno.com/@scp_4335_1', '_blank')" style="cursor: pointer;">
+                    <div class="avatar-container">
+                        <img class="avatar" src="f49986a1.webp" alt="Avatar">
+                        <div class="status-indicator active"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h3>SCP-4335-1</h3>
+                        <p class="status-text">🔥 Aktiver Musik Creator</p>
+                    </div>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number" id="followers">0</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="following">0</span>
+                            <span class="stat-label">Following</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="plays">0</span>
+                            <span class="stat-label">Plays</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="likes">0</span>
+                            <span class="stat-label">Likes</span>
+                        </div>
+                    </div>    
+                </div>
+                <hr class="separator-bar">
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p class="subtitle">———SCP-4335-1———</p>
+        <p class="warning">🌀 Die Realität ist eine Illusion 🌀</p>
+    </footer>
+    <script>
+        // Detect mobile device and apply appropriate styles
+        function detectDevice() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                           window.innerWidth <= 768;
+            
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+                // Apply mobile-specific styles
+                document.documentElement.style.fontSize = '14px';
+                console.log('Mobile device detected, applying mobile styles');
+            } else {
+                document.body.classList.add('desktop-device');
+                console.log('Desktop device detected, applying desktop styles');
+            }
+        }
+
+        // Parse numbers and format with K/M suffixes for display
+        function parseNumber(value) {
+            let num;
+            if (typeof value === 'number') {
+                num = value;
+            } else if (typeof value === 'string') {
+                const trimmed = value.trim().toUpperCase();
+                if (trimmed.endsWith('K')) {
+                    num = parseFloat(trimmed.slice(0, -1)) * 1000;
+                } else if (trimmed.endsWith('M')) {
+                    num = parseFloat(trimmed.slice(0, -1)) * 1000000;
+                } else {
+                    num = parseFloat(trimmed) || 0;
+                }
+            } else {
+                num = 0;
+            }
+            
+            // Format with K/M suffixes
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            } else {
+                return num.toString();
+            }
+        }
+
+        // Load stats from JSON file
+        async function loadStats() {
+            try {
+                const response = await fetch('stats.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const text = await response.text();
+                console.log('Raw JSON response:', text);
+                const stats = JSON.parse(text);
+                
+                document.getElementById('followers').textContent = parseNumber(stats.followers);
+                document.getElementById('following').textContent = parseNumber(stats.following);
+                document.getElementById('plays').textContent = parseNumber(stats.plays);
+                document.getElementById('likes').textContent = parseNumber(stats.likes);
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                // Set default values if JSON fails to load
+                document.getElementById('followers').textContent = '0';
+                document.getElementById('following').textContent = '0';
+                document.getElementById('plays').textContent = '0';
+                document.getElementById('likes').textContent = '0';
+            }
+        }
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            detectDevice();
+            loadStats();
+            
+            // Random glitch effect on title
+            const title = document.querySelector('.main-title');
+            setInterval(() => {
+                if (Math.random() > 0.95) {
+                    title.style.textShadow = '0 0 20px #fff, 0 0 40px #ff0000, 0 0 60px #ff0000';
+                    setTimeout(() => {
+                        title.style.textShadow = '';
+                    }, 100);
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
